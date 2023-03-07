@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{{$title ?? 'Presto.it'}}</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+        @livewireStyles
     </head>
     <body>
         <x-nav />
@@ -15,6 +15,6 @@
         </div>
 
 
-        
+        @livewireScripts
     </body>
 </html>
