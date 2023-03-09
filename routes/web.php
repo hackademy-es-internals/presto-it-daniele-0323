@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +15,15 @@ use App\Http\Controllers\AnnouncementController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontController::class, 'welcome'])->name('welcome');
+
+Route::get('/categoria/{category}', [FrontController::class, 'categoryShow'])->name('categoryShow');
 
 Route::get('/nuovo/annuncio', [AnnouncementController::class, 'createAnnouncement'])
 ->middleware('auth')->name('announcements.create');
 
-?>
+Route::get('/dettaglio/annuncio/{announcement}', [AnnouncementController::class, 'showAnnouncement'])
+->name('announcements.show');
+
+Route::get('/tutti/annunci', [FrontController::class, 'indexAnnouncement'])
+->name('announcements.index');

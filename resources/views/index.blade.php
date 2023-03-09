@@ -16,6 +16,7 @@
                         details="{{route('announcements.show', $announcement)}}"
                     />
                     @endforeach
+                    {{$announcements->links()}}
                 </div>
             </div>
         </div>
