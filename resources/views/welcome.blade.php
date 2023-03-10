@@ -4,6 +4,8 @@
             <div class="col-12 text-center">
                 <h1>Presto.it</h1>
                 <p class="h2 my-2 fw-bold">Ecco i nostri annunci</p>
+                
+
                 <div class="row">
                     @foreach ($announcements as $announcement)
                     <x-announcementCard 

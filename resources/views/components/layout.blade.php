@@ -11,10 +11,14 @@
     <body>
         <x-nav />
         <div class="min-vh-100">
+            <div class="col-12 text-center">
+                <p class="h3 my-2 fw-bold bg-danger rounded">{{Session::get('access.denied')}}</p>
+                <p class="h3 my-2 fw-bold bg-success rounded">{{Session::get('message')}}</p>
+            </div>
             {{$slot}}
         </div>
 
-
+        <x-footer />
         @livewireScripts
     </body>
 </html>

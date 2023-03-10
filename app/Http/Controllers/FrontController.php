@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 class FrontController extends Controller
 {
     public function welcome() {
-        $announcements = Announcement::latest()->take(6)->get();
+        $announcements = Announcement::where('is_accepted', true)->latest()->take(6)->get();
         
         return view('welcome', compact('announcements'));
     }
 
     public function indexAnnouncement() {
-        $announcements = Announcement::paginate(6);
+        $announcements = Announcement::where('is_accepted', true)->paginate(6);
         
         return view('index', compact('announcements'));
     }

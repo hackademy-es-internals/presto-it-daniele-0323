@@ -45,4 +45,14 @@ class User extends Authenticatable
     public function announcements(){
         return $this->hasMany(Announcement::class);
     }
+
+    /**
+     * set the last reviewed announcement
+     * 
+     * @param announcement primary key of the announcement reviewed 
+     */
+    public function setLastReviewed($announcement){
+        $this->last_reviewed_announcement = $announcement;
+        $this->save();
+    }
 }

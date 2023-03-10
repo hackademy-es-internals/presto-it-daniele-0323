@@ -30,8 +30,16 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{Auth::user()->name}}</a>
                   <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
+                  @if (Auth::user()->is_revisor)
+                    <li>
+                      <a class="dropdown-item" href="{{route('revisor.index')}}">Zona revisore</a>
+                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{App\Models\Announcement::toBeRevisionedCount()}}
+                        <span class="visually-hidden">unread messages</span>
+                      </span>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                  @endif
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                   <li><a href="/logout" class="dropdown-item" onclick="event.preventDefault();getElementById('form-logout').submit();">Logout</a></li>
                   </ul>
