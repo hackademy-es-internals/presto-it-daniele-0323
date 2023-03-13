@@ -48,6 +48,15 @@
                   </form>
                 </li>
               @endguest
+              <li class="nav-item">
+                <x-_locale lang="it"></x-locale>
+              </li>
+              <li class="nav-item">
+                <x-_locale lang="en"></x-locale>
+              </li>
+              <li class="nav-item">
+                <x-_locale lang="es"></x-locale>
+              </li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

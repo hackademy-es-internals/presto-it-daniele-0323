@@ -13,8 +13,8 @@
                     <input name="password" id="password" type="password" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <input type="checkbox" name="remember" class="form-check" id="ricordami">
-                    <label for="ricordami" class="form-label">Ricordati di me</label>
+                    <input type="checkbox" name="remember" class="form-check" id="remember">
+                    <label for="remember" class="form-label">Ricordati di me</label>
                 </div>
                 <button type="submit"class="btn btn-primary">Login</button>
             </form>

@@ -28,14 +28,19 @@ Route::get('/tutti/annunci', [FrontController::class, 'indexAnnouncement'])
 
 Route::get('/rendi/revisore/{user}', [RevisorController::class, 'makeRevisor'])->name('make.revisor');
 
+Route::post('/lingua/{lang}', [FrontController::class, 'setLanguage'])->name('setLanguage');
+
 Route::middleware(['auth'])->group(function(){
 
+    ///SEZIONE UTENTE LOGGATO
     Route::get('/nuovo/annuncio', [AnnouncementController::class, 'createAnnouncement'])
     ->name('announcements.create');
 
     Route::get('/richiesta/revisore', [RevisorController::class, 'becomeRevisor'])->name('become.revisor');
 
     Route::middleware(['isRevisor'])->group(function(){
+
+        ///SEZIONE UTENTE REVISORE
         Route::get('/revisor/home', [RevisorController::class, 'index'])->name('revisor.index');
 
         Route::patch('/accetta/annuncio/{announcement}', [RevisorController::class, 'acceptAnnouncement'])

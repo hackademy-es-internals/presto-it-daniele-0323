@@ -1,7 +1,7 @@
 <div class="container-fluid mt-4 p-5 bg-dark text-light">
     <div class="row">
         <div class="col-12 text-center">
-            @if (Auth::user()->is_revisor)
+            @if (isset(Auth::user()->is_revisor) && Auth::user()->is_revisor)
                 @if (Auth::user()->last_reviewed_announcement != null)
                     <p>Presto.it</p>
                     <p>Hai fatto una cagata e vuoi tornare indietro?</p>

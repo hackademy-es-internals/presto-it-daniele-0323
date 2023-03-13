@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1>Presto.it</h1>
-                <p class="h2 my-2 fw-bold">Ecco i nostri annunci</p>
+                <p class="h2 my-2 fw-bold">{{__('ui.allAnnouncement')}}</p>
                 
 
                 <div class="row">
