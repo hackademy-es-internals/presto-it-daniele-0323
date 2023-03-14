@@ -18,13 +18,17 @@ class RevisorController extends Controller
     }
 
     public function acceptAnnouncement(Announcement $announcement){
-        $announcement->setAccepted(true);
+        if(!$announcement->setAccepted(true)){
+            return redirect()->back()->with('access.denied', 'Annuncio già revisionato da altri utenti');
+        }
         Auth::user()->setLastReviewed($announcement->id);
         return redirect()->back()->with('message', 'Complimenti, hai accettato l\'annuncio');
     }
 
     public function rejectAnnouncement(Announcement $announcement){
-        $announcement->setAccepted(false);
+        if(!$announcement->setAccepted(false)){
+            return redirect()->back()->with('access.denied', 'Annuncio già revisionato da altri utenti');
+        }
         Auth::user()->setLastReviewed($announcement->id);
         return redirect()->back()->with('message', 'Complimenti, hai negato la ricchezza a qualcuno');
     }

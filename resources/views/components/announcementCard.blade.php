@@ -1,6 +1,6 @@
 <div class="col-12 col-md-4 my-4">
     <div class="card shadow" style="width: 18rem;">
-        <img src="https://picsum.photos/200" alt="..." class="card-img-top p-3 rounded">
+        {{$slot}}
         <div class="card-body">
             <h5 class="card-title">{{$title}}</h5>
             <p class="card-text">{{$body}}</p>

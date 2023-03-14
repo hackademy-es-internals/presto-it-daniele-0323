@@ -19,7 +19,9 @@
                         createdAt="{{$announcement->created_at->format('d/m/Y')}}" 
                         author="{{$announcement->user->name}}"
                         details="{{route('announcements.show', $announcement)}}"
-                    />
+                    >
+                        <img src="{{!$announcement->images()->get()->isEmpty() ? Storage::url($announcement->images()->first()->path) : 'https://picsum.photo/200'}}" alt="..." class="card-img-top p-3 rounded">
+                    </x-announcementCard>
                     @empty
                         <div class="col-12">
                             <p class="h1">Non sono presenti annunci in questa categoria</p>

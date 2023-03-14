@@ -11,15 +11,23 @@
             <div class="col-12">
                 <div id="showCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="http://picsum.photos/id/27/1200/200" alt="..." class="img-fluid p-3 rounded">
-                        </div>
-                        <div class="carousel-item active">
-                            <img src="http://picsum.photos/id/28/1200/200" alt="..." class="img-fluid p-3 rounded">
-                        </div>
-                        <div class="carousel-item active">
-                            <img src="http://picsum.photos/id/29/1200/200" alt="..." class="img-fluid p-3 rounded">
-                        </div>
+                        @if (!$announcement->images->isEmpty())
+                            @foreach ($announcement->images as $image)
+                                <div class="carousel-item @if($loop->first) active @endif">
+                                    <img src="{{Storage::url($image->path)}}" alt="..." class="img-fluid p-3 rounded">
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="carousel-item active">
+                                <img src="http://picsum.photos/id/27/1200/200" alt="..." class="img-fluid p-3 rounded">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="http://picsum.photos/id/28/1200/200" alt="..." class="img-fluid p-3 rounded">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="http://picsum.photos/id/29/1200/200" alt="..." class="img-fluid p-3 rounded">
+                            </div>
+                        @endif
                         <button class="carousel-control-prev" type="button" data-bs-target="#showCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
