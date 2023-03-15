@@ -16,7 +16,9 @@
                         category="{{$announcement->category->name}}"
                         createdAt="{{$announcement->created_at->format('d/m/Y')}}" 
                         details="{{route('announcements.show', $announcement)}}"
-                    />
+                        >
+                        <img src="{{!$announcement->images()->get()->isEmpty() ? $announcement->images()->first()->getUrl(400, 250) : 'https://picsum.photos/400/250'}}" alt="..." class="card-img-top p-3 rounded">
+                    </x-announcementCard>
                     @endforeach
                 </div>
             </div>

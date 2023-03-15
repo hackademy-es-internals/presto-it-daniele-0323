@@ -20,7 +20,7 @@
                         author="{{$announcement->user->name}}"
                         details="{{route('announcements.show', $announcement)}}"
                     >
-                        <img src="{{!$announcement->images()->get()->isEmpty() ? Storage::url($announcement->images()->first()->path) : 'https://picsum.photo/200'}}" alt="..." class="card-img-top p-3 rounded">
+                        <img src="{{!$announcement->images()->get()->isEmpty() ? Storage::url($announcement->images()->first()->path) : 'https://picsum.photos/200'}}" alt="..." class="card-img-top p-3 rounded">
                     </x-announcementCard>
                     @empty
                         <div class="col-12">

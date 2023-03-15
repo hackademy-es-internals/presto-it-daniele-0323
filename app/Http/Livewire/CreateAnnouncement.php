@@ -4,9 +4,11 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Category;
+use App\Jobs\ResizeImage;
 use App\Models\Announcement;
-use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class CreateAnnouncement extends Component
 {
@@ -24,23 +26,23 @@ class CreateAnnouncement extends Component
         'body' => 'required|min:8',
         'category' => 'required',
         'price' => 'required|numeric',
-        'images.*' =>'image|max:1024',
-        'temporary_images.*' =>'image|max:1024',
+        'images.*' =>'image|max:4096',
+        'temporary_images.*' =>'image|max:4096',
     ];
 
     protected $messages = [
         'required' => 'Il campo :attribute è richiesto',
         'min' => 'Il campo :attribute è troppo corto',
         'images.image' =>'L\'immagine deve essere un\'immagine',
-        'images.max' =>'L\'immagine deve essere massimo 1MB',
+        'images.max' =>'L\'immagine deve essere massimo 4MB',
         'temporary_images.required' =>'L\'immagine è richiesta',
         'temporary_images.*.image' =>'I file devono essere un\'immagine',
-        'temporary_images.*.max' =>'L\'immagine deve essere massimo 1MB',
+        'temporary_images.*.max' =>'L\'immagine deve essere massimo 4MB',
     ];
 
     public function updatedTemporaryImages(){
         if($this->validate([
-            'temporary_images.*' => 'image|max:1024',
+            'temporary_images.*' => 'image|max:4096',
         ])){
             foreach($this->temporary_images as $image){
                 $this->images[] = $image;
@@ -62,12 +64,18 @@ class CreateAnnouncement extends Component
             'body' => $this->body,
             'price' => $this->price
         ]);
-        foreach($this->images as $image){
-            $announcement->images()->create(['path' => $image->store('images', 'public')]);
+        if(count($this->images)){
+            foreach($this->images as $image){
+                //$announcement->images()->create(['path' => $image->store('images', 'public')]);
+                $newFileName = "announcements/{$announcement->id}";
+                $newImage = $announcement->images()->create(['path'=>$image->store($newFileName, 'public')]);
+                dispatch(new ResizeImage($newImage->path, 400, 250));
+            }
+            File::deleteDirectory(storage_path('app/livewire-tmp'));
         }
         Auth::user()->announcements()->save($announcement);
 
-        session()->flash('message', 'Annuncio inserito con successo');
+        session()->flash('message', 'Annuncio inserito con successo, sarà pubblicato dopo la revisione');
         $this->cleanForm();
     }
 
