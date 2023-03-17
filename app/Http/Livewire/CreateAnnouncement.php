@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\AddLogoIcon;
 use App\Jobs\GoogleVisionLabelImage;
 use App\Jobs\GoogleVisionSafeSearch;
 use App\Jobs\RemoveFaces;
@@ -74,6 +75,7 @@ class CreateAnnouncement extends Component
                 
                 $newImage = $announcement->images()->create(['path' => $image->store($newFileName, 'public')]);
                 RemoveFaces::withChain([
+                    new AddLogoIcon($newImage->id),
                     new ResizeImage($newImage->path, 400, 250),
                     new GoogleVisionSafeSearch($newImage->id),
                     new GoogleVisionLabelImage($newImage->id),
