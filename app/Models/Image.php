@@ -12,6 +12,9 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = ['path'];
+    protected $casts = [
+        'labels' => 'array'
+    ];
 
     public static function getUrlByFilePath($filePath, $width = null, $height = null){
         if(!$width && !$height){

@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container-fluid p-5 bg-gradient bg-success shadow mb-4">
-        <div class="row" style="height: 50px">
-            <div class="col-12 text-center text-light ">
+        <div class="row">
+            <div class="col-9 text-light p-5">
                 <h1 class="display-2">{{$announcement_to_check ? 'Ecco l\'annuncio da revisionare' : 'Non ci sono annunci da revisionare'}}</h1>
             </div>
         </div>
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4">
-                <div id="showCarousel" class="carousel slide" data-interval="false">
+                <div id="showCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         @if (!$announcement_to_check->images->isEmpty())
                             @foreach ($announcement_to_check->images as $image)
@@ -50,42 +50,26 @@
                     </p>
                 </div>
             </div>
-            @php
-                $i=0;
-            @endphp
-            @foreach ($announcement_to_check->images as $image)
-            
-                <div id="imgrev_{{$i}}" class="col-4 @if($i>0)d-none @endif">
-                    <div class="card-body">
-                        <h5 class="tc-accent">Revisione immagine</h5>
-                        <p>Adulti: <span class="{{$image->adult}}"></span></p>
-                        <p>Satira: <span class="{{$image->spoof}}"></span></p>
-                        <p>Medicina: <span class="{{$image->medical}}"></span></p>
-                        <p>Violenza: <span class="{{$image->violence}}"></span></p>
-                        <p>Contenuto sessuale: <span class="{{$image->racy}}"></span></p>
-                        
-                    </div>
+            <div class="col-8">
+                <div class="card-body">
+                    <h5 class="tc-accent">Revisione immagini</h5>
+                    <p>Adulti: <span class="{{$image->adult}}"></span></p>
+                    <p>Satira: <span class="{{$image->spoof}}"></span></p>
+                    <p>Medicina: <span class="{{$image->medical}}"></span></p>
+                    <p>Violenza: <span class="{{$image->violence}}"></span></p>
+                    <p>Contenuto sessuale: <span class="{{$image->racy}}"></span></p>
+                    
                 </div>
-                <div id="imglbl_{{$i}}" class="col-4 @if($i++>0)d-none @endif">
-                    <div class="card-body">
-                        <h5 class="tc-accent">Etichette immagine</h5>
-                        <div class="overflow-auto">
-                            @foreach ($image->labels as $label)
-                                <p>{{$label}}</p>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+            </div>
             <div class="row">
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-6">
                     <form action="{{route('revisor.accept_announcement', ['announcement'=>$announcement_to_check])}}" method="POST">
                         @csrf
                         @method('PATCH')
                         <button type="submit" class="btn btn-success shadow">Accetta</button>
                     </form>
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-6">
                     <form action="{{route('revisor.reject_announcement', ['announcement'=>$announcement_to_check])}}" method="POST">
                         @csrf
                         @method('PATCH')
@@ -96,25 +80,4 @@
         </div>
     </div>
     @endif
-    <script type="text/javascript">
-        window.imageInfo = function foo(carouselID){
-        const myCarousel = document.getElementById(carouselID)
-
-        myCarousel.addEventListener('slide.bs.carousel', function(e) {
-                console.log(e.from);
-                console.log(e.to);
-                var revToHide = document.getElementById("imgrev_"+ e.from);
-                var lblToHide = document.getElementById("imglbl_"+ e.from);
-                var revToShow = document.getElementById("imgrev_"+ e.to);
-                var lblToShow = document.getElementById("imglbl_"+ e.to);
-                
-                revToHide.classList.add("d-none");
-                lblToHide.classList.add("d-none");
-                revToShow.classList.remove("d-none");
-                lblToShow.classList.remove("d-none");
-
-            })
-        }
-        window.imageInfo('showCarousel')
-    </script>
 </x-layout>
