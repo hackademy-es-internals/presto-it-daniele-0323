@@ -30,4 +30,9 @@ class FrontController extends Controller
         session()->put('locale', $lang);
         return redirect()->back();
     }
+
+    public function searchAnnouncements(Request $request){
+        $announcements = Announcement::search($request->searched)->where('is_accepted', true)->paginate(6);
+        return view('index', compact('announcements'));
+    }
 }

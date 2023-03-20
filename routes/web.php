@@ -18,6 +18,8 @@ use App\Http\Controllers\RevisorController;
 
 Route::get('/', [FrontController::class, 'welcome'])->name('welcome');
 
+Route::get('/ricerca/annuncio', [FrontController::class, 'searchAnnouncements'])->name('announcements.search');
+
 Route::get('/categoria/{category}', [FrontController::class, 'categoryShow'])->name('categoryShow');
 
 Route::get('/dettaglio/annuncio/{announcement}', [AnnouncementController::class, 'showAnnouncement'])

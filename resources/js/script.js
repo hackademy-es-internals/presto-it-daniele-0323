@@ -17,4 +17,5 @@ window.imageInfo = function foo(carouselID){
 
     })
 }
+
 */

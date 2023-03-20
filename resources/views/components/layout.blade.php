@@ -22,5 +22,6 @@
 
         <x-footer />
         @livewireScripts
+        {{$scripts ?? ''}}
     </body>
 </html>
